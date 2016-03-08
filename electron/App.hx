@@ -1,40 +1,22 @@
-//v0.36.7 / API / App
 package electron;
 
-@:enum
-abstract AppEvent(String) {
-    var WILL_FINISH_LAUNCHING = "will-finish-launching";
-    var READY = "ready";
-    var WINDOW_ALL_CLOSED = "window-all-closed";
-    var BEFORE_QUIT = "before-quit";
-    var WILL_QUIT = "will-quit";
-    var QUIT = "quit";
-    var OPEN_FILE = "open-file";//OSX
-    var OPEN_URL = "open-url";//OSX
-    var ACTIVATE = "activate";//OSX
-    var BROWSER_WINDOW_BLUR = "browser-window-blur";
-    var BROWSER_WINDOW_FOCUS = "browser-window-focus";
-    var BROWSER_WINDOW_CREATED = "browser-window-created";
-    var CERTIFICATE_ERROR = "certificate-error";
-    var SELECT_CLIENT_CERTIFICATE = "select-client-certificate";
-    var LOGIN = "login";
-    var GPU_PROCESS_CRASHED = "gpu-process-crashed";
-}
+import js.node.events.EventEmitter;
 
-@:enum
-abstract AppPath(String) {
-    var HOME = "home";
-    var APPDATA = "appData";
-    var USERDATA = "userData";
-    var TEMP = "temp";
-    var EXE = "exe";
-    var MODULE = "module";
-    var DESKTOP = "desktop";
-    var DOCUMENTS = "documents";
-    var DOWNLOADS = "downloads";
-    var MUSIC = "music";
-    var PICTURES = "pictures";
-    var VIDEOS = "videos";
+@:enum abstract AppEventType(String) from String to String {
+    var will_finish_launching = "will-finish-launching";
+    var ready = "ready";
+    var window_all_closed = "window-all-closed";
+    var before_quit = "before-quit";
+    var will_quit = "will-quit";
+    var quit = "quit";
+    var open_file = "open-file";
+    var open_url = "open-url";
+    var activate = "activate";
+    var browser_window_blur = "browser-window-blur";
+    var browser_window_focus = "browser-window-focus";
+    var browser_window_created = "browser-window-created";
+    var select_certificate = "select-certificate";
+    var gpu_process_crashed = "gpu-process-crashed";
 }
 
 typedef Task = {
@@ -46,27 +28,25 @@ typedef Task = {
     var iconIndex : Int;
 }
 
-@:jsRequire('app')
-extern class App
-{
-    static var commandLine(default, null) : CommandLine;
-    static var dock(default, null) : Dock; //OSX
-
-    static function quit() : Void;
-    static function exit( exitCode:Int ) : Void;
-    static function getAppPath() : String;
-    static function getPath( name:AppPath ) : String;
-    static function setPath( name:AppPath, path:String ) : Void;
-    static function getVersion() : String;
-    static function getName() : String;
-    static function getLocale() : String;
-    static function addRecentDocument( path:String ) : Void; //OSX Windows
-    static function clearRecentDocuments() : Void; //OSX Windows
-    static function setUserTasks( tasks:Array<Task> ) : Void; //Windows
-    static function allowNTLMCredentialsForAllDomains( allow:Bool ) : Void;
-    static function makeSingleInstance( callback:Array<String>->String->Void ) : Bool;
-    static function setAppUserModelId( id:String ) : String; //Windows
-    static function isAeroGlassEnabled() : Bool; //Windows
-
-    static function on( eventType:AppEvent, callback:Void->Void ) : Void;
+@:jsRequire("app")
+extern class App {
+  static var commandLine(default, null) : CommandLine;
+  static var dock(default, null) : Dock;
+  static function quit() : Void;
+  static function getAppPath() : String;
+  static function getPath(name : String) : String;
+  static function setPath(name : String, value : String) : Void;
+  static function getVersion() : String;
+  static function getName() : String;
+  static function getLocale() : String;
+  // TODO remove dynamic
+  static function resolveProxy(rul : String, callback : Dynamic -> Void) : Void;
+  static function addRecentDocument(path : String) : Void;
+  static function clearRecentDocuments() : Void;
+  static function setUserTasks( tasks : Array<Task> ) : Void;
+  static function allowNTLMCredentialsForAllDomains( allow : Bool ) : Void;
+  static function on( eventType : AppEventType, callback : Void -> Void) : Void;
+  static function terminate() : Void;
+  // TODO
+  // setUserTasks(tasks)
 }

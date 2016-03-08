@@ -1,7 +1,6 @@
 package electron;
 
-extern class CommandLine
-{
-    function appendSwitch( switchValue:String, ?value:String ) : Void;
-    function appendArgument( value:String ) : Void;
+extern class CommandLine {
+  static function appendSwitch(name : String, ?value : String) : Void;
+  static function appendArgument(value : String) : Void;
 }
