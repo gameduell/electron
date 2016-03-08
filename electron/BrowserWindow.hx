@@ -25,7 +25,7 @@ import haxe.Constraints.Function;
     var app_command : BrowserWindowEvent<String->Void> = "app-command";
 }
 
-@:jsRequire("electron", "BrowserWindow")
+@:jsRequire("electron")
 extern class BrowserWindow extends EventEmitter<BrowserWindow> {
     static function getAllWindows() : Array<BrowserWindow>;
     static function getFocusedWindow() : BrowserWindow;
