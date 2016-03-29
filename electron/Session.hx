@@ -16,7 +16,7 @@ typedef Cookie = {
 
 typedef Cookies = {
     function get( details : {?url:String,?name:String,?domain:String,?path:String,?secure:Bool,?session:Bool}, callback : js.Error->Array<Cookie>->Void ) : Void;
-    function set( details : {?url:String,?name:String,?value:String,?path:String,?secure:Bool,?session:Bool,?expirationDate:Float}, callback : js.Error->Void ) : Void;
+    function set( details : {?url:String,?name:String,?value:String,?domain:String,?path:String,?secure:Bool,?session:Bool,?expirationDate:Float}, callback : js.Error->Void ) : Void;
     function remove( details : {?url:String,?name:String}, callback : js.Error->Void ) : Void;
 }
 
@@ -38,7 +38,12 @@ typedef Cookies = {
 }
 
 extern class Session extends EventEmitter<Session> {
+
+    static function fromPartition( partition:String ) : Session;
+
     var cookies(default,null) : Cookies;
+    var webRequest(default, null) : WebRequest;
+
     function clearCache() : Void;
     function clearStorageData( ?options : {origin:String,storages:Array<Storage>,quotas:Array<Quota>}, callback : Void->Void ) : Void;
     function setProxy( config : String, callback : Void->Void ) : Void;

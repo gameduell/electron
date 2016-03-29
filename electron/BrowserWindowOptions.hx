@@ -9,12 +9,12 @@ package electron;
 }
 
 typedef WebPreferences = {
-    @:optional @:native("node-integration") var node_integration : Bool;
+    @:optional @:native("node-integration") var nodeIntegration : Bool;
     @:optional var preload : String;
     @:optional var partition : String;
     @:optional @:native("zoom-factor") var zoom_factor : Float;
     @:optional var javascript : Bool;
-    @:optional @:native("web-security") var web_security : Bool;
+    @:optional @:native("web-security") var webSecurity : Bool;
     @:optional @:native("allow-displaying-insecure-content") var allow_displaying_insecure_content : Bool;
     @:optional @:native("allow-running-insecure-content") var allow_running_insecure_content : Bool;
     @:optional var images : Bool;
@@ -30,6 +30,7 @@ typedef WebPreferences = {
     @:optional @:native("shared-worker") var shared_worker : Bool;
     @:optional @:native("direct-write") var direct_write : Bool;
     @:optional @:native("page-visibility") var page_visibility : Bool;
+    @:optional @:native("session") var session : Session;
 }
 
 typedef BrowserWindowOptions = {
@@ -37,7 +38,7 @@ typedef BrowserWindowOptions = {
     @:optional var height : Int;
     @:optional var x : Int;
     @:optional var y : Int;
-    @:native("use-content-size") @:optional var use_content_size : Bool;
+    @:native("use-content-size") @:optional var useContentSize : Bool;
     @:optional var center : Bool;
     @:native("min-width") @:optional var min_width : Bool;
     @:native("min-height") @:optional var min_height : Bool;
@@ -65,5 +66,5 @@ typedef BrowserWindowOptions = {
     @:optional var type : WindowType;
     @:native("standard-window") @:optional var standard_window : Bool;
     @:native("title-bar-style") @:optional var title_bar_style : Bool;
-    @:native("web-preferences") @:optional var web_preferences : WebPreferences;
+    @:native("web-preferences") @:optional var webPreferences : WebPreferences;
 }
